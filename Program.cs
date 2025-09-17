@@ -1,8 +1,40 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CompSciCalculator
+class Calculator
 {
-    internal class Program
+    public static double DoOperation(double num1, double num2, string op)
+    {
+        double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.
+
+        // Use a switch statement to do the math.
+        switch (op)
+        {
+            case "1":
+                result = num1 + num2;
+                break;
+            case "2":
+                result = num1 - num2;
+                break;
+            case "3":
+                result = num1 * num2;
+                break;
+            case "4":
+                // Ask the user to enter a non-zero divisor.
+                if (num2 != 0)
+                {
+                    result = num1 / num2;
+                }
+                break;
+            // Return text for an incorrect option entry.
+            default:
+                break;
+        }
+        return result;
+    }
+}
+namespace CompSciCalculator
+{ 
+    class Program
     {
         static void Main(string[] args)
         {
@@ -33,6 +65,12 @@ namespace CompSciCalculator
                         num2 = Convert.ToDouble(Console.ReadLine());
 
                     //Addition, Subtraction, Multiplication, Division
+                        //Non-zero divisor check
+                            while (num2 == 0)
+                            {
+                                Console.WriteLine("Enter a non-zero divisor: ");
+                                num2 = Convert.ToDouble(Console.ReadLine());
+                            }
                         Console.WriteLine($"Your numbers added together: {num1} + {num2} = " + (num1 + num2));
                         Console.WriteLine($"Your numbers subtracted: {num1} - {num2} = " + (num1 - num2));
                         Console.WriteLine($"Your numbers multiplied: {num1} * {num2} = " + (num1 * num2));
@@ -80,7 +118,7 @@ namespace CompSciCalculator
                                     }
                                     Console.WriteLine($"Your result: {num1} / {num2} = " + (num1 / num2));
                             break;
-                    }
+                        }
                     //End Program
                         Console.Write("Press any key to close the Calculator...");
                         Console.ReadKey();
@@ -90,9 +128,9 @@ namespace CompSciCalculator
                     //if (case null || !Regex.IsMatch(op, "[1|2]"))
                     { Console.WriteLine("Invalid option. Please choose 1 or 2."); }
                 break;
-            }
+                }
 
-            
+      
         }
     }
 }
